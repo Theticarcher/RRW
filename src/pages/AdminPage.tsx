@@ -1,26 +1,21 @@
 import React, { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 const AdminPage: React.FC = () => {
   const [authenticated, setAuthenticated] = useState(false);
   const [login, setLogin] = useState({ username: '', password: '' });
   const [event, setEvent] = useState({
-    id: '',
     title: '',
     description: '',
     startTime: '',
     endTime: ''
   });
 
-  // Access environment variables (should be automatically available in React)
   const username = process.env.REACT_APP_USERNAME;
   const password = process.env.REACT_APP_PASSWORD;
 
-  // Ensure that username and password are being read correctly
-
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Check if the entered username and password match the environment variables
     if (login.username === username && login.password === password) {
       setAuthenticated(true);
     } else {
@@ -31,13 +26,23 @@ const AdminPage: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    const newEvent = {
+      ...event,
+      id: uuidv4() // Generate unique ID
+    };
+
     const stored = localStorage.getItem('events');
     const events = stored ? JSON.parse(stored) : [];
-    events.push(event);
+    events.push(newEvent);
     localStorage.setItem('events', JSON.stringify(events));
 
     alert('Event saved to localStorage!');
-    setEvent({ id: '', title: '', description: '', startTime: '', endTime: '' });
+    setEvent({
+      title: '',
+      description: '',
+      startTime: '',
+      endTime: ''
+    });
   };
 
   if (!authenticated) {
@@ -63,12 +68,6 @@ const AdminPage: React.FC = () => {
   return (
     <form onSubmit={handleSubmit} className="admin-form">
       <h2>Add New Event</h2>
-      <input
-        placeholder="ID"
-        value={event.id}
-        onChange={(e) => setEvent({ ...event, id: e.target.value })}
-        required
-      />
       <input
         placeholder="Title"
         value={event.title}
