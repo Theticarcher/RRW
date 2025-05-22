@@ -1,0 +1,6 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"    # Specify npm as the package ecosystem for Node.js
+    directory: "/"              # The location of your package manifests (usually at the root)
+    schedule:
+      interval: "weekly"        # Check for updates once a week

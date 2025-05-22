@@ -1,0 +1,121 @@
+{
+    "title": "Royal Restoration",
+    "wh1": "Royal Restoration",
+    "wh2": "Premium Car Detailing",
+    "navbar": {
+      "logo": {
+        "text": "Royal Restoration",
+        "href": "/"
+      },
+      "links": [
+        { "text": "Home", "href": "/" },
+        { "text": "Services", "href": "/services" }
+      ]
+    },
+    "services": [
+      {
+        "id": "black",
+        "name": "Black Package",
+        "description": {
+          "paragraphs": [
+            "Our black package offers you an all inclusive oil change for CHEAP.",
+            "Vs dealership @ 125-150 or $22/quart. You save $25 or $3.5/quart"
+          ],
+          "lists": [
+            [
+              "Sedans/Midsize SUV's & Trucks: $100",
+              "Full size SUV's & Trucks (more than 5 quarts): 18.5/quart"
+            ]
+          ]
+        }
+      },
+      {
+        "id": "bronze",
+        "name": "Bronze Package",
+        "description": {
+          "paragraphs": [
+            "The bronze package includes trash removal, vacuuming carpet and seats as well as an exterior wash and wax.",
+            "Additionally you can add an oil change to this package, see below for package pricing including oil change.",
+            "Vs. dealership @ $150-250. You save $50-100"
+          ],
+          "lists": [
+            [
+              "Sedans: $100",
+              "Midsized: $125",
+              "Fullsized: $150"
+            ],
+            [
+              "Sedan: $175",
+              "Midsize: $200",
+              "Fullsize: $240"
+            ]
+          ]
+        }
+      },
+      {
+        "id": "silver",
+        "name": "Silver Package",
+        "description": {
+          "paragraphs": [
+            "Includes all the services offered in the Bronze package as well as water extracting both seats and carpets. Additionally we will make your windows spotless!",
+            "Additionally you can add an oil change to this package, see below for package pricing including oil change.",
+            "Vs. dealership @ $300-400. You save $125-175"
+          ],
+          "lists": [
+            [
+              "Sedan: $175",
+              "Midsize: $200",
+              "Fullsize: $225"
+            ],
+            [
+              "Sedan: $250",
+              "Midsize: $275",
+              "Fullsize: $315"
+            ]
+          ]
+        }
+      },
+      {
+        "id": "gold",
+        "name": "Gold Package",
+        "description": {
+          "paragraphs": [
+            "Includes all previous features + engine bay cleanup, tire care, and steaming seatbelts, vents, and cupholders.",
+            "Additionally you can add an oil change to this package, see below for package pricing including oil change."
+          ],
+          "lists": [
+            [
+              "Sedans: $300",
+              "Midsize: $325",
+              "Fullsize: $350"
+            ],
+            [
+              "Sedan: $375",
+              "Midsize: $400",
+              "Fullsize: $440"
+            ]
+          ]
+        }
+      },
+      {
+        "id": "wcc",
+        "name": "Windshield Ceramic Coating",
+        "description": {
+          "paragraphs": [
+            "Coming soon: Windshield ceramic coating to improve visibility and protect glass from wear."
+          ],
+          "lists": []
+        }
+      },
+      {
+        "id": "mmt",
+        "name": "Mold/Mildew Treatment (ozone)",
+        "description": {
+          "paragraphs": [
+            "Coming soon: Ozone-based mold and mildew treatment to eliminate odors and kill spores."
+          ],
+          "lists": []
+        }
+      }
+    ]
+  }
