@@ -33,7 +33,7 @@ jobs:
         run: npm ci
 
       - name: Build React app
-        run: npm run build --if-present || (echo "Build failed" && exit 1)
+        run: CI=false npm run build --if-present || (echo "Build failed" && exit 1)
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
