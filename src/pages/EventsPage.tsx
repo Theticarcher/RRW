@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../styling/style.sass'; // Import your SASS file
+import '../styling/style.sass';
 
 interface Event {
   id: string;
@@ -18,10 +18,13 @@ const EventsPage: React.FC = () => {
     const storedEvents = localStorage.getItem('events');
 
     if (storedEvents) {
-      const eventsArray = JSON.parse(storedEvents) as Event[];
+      const parsed = JSON.parse(storedEvents);
+      const eventsArray: Event[] = parsed.events || [];
 
-      // Filter events to only include those that haven't ended
-      const filteredEvents = eventsArray.filter(event => new Date(event.endTime) > now);
+      const filteredEvents = eventsArray.filter(
+        event => new Date(event.endTime) > now
+      );
+
       setEvents(filteredEvents);
     }
   }, []);
@@ -33,24 +36,34 @@ const EventsPage: React.FC = () => {
   return (
     <div className="events-page">
       <h1>Upcoming Events</h1>
+
       {events.length === 0 ? (
         <p>No upcoming events.</p>
       ) : (
         <div className="event-cards">
-          {events.map(event => (
-            <div
-              key={event.id}
-              onClick={() => toggleExpand(event.id)}
-              className={`event-card ${expandedId === event.id ? 'expanded' : ''}`}
-            >
-              <h2>{event.title}</h2>
-              <p>
-                {new Date(event.startTime).toLocaleString()} –{' '}
-                {new Date(event.endTime).toLocaleString()}
-              </p>
-              {expandedId === event.id && <p>{event.description}</p>}
-            </div>
-          ))}
+          {events.map(event => {
+            const isExpanded = expandedId === event.id;
+
+            return (
+              <div
+                key={event.id}
+                onClick={() => toggleExpand(event.id)}
+                className={`event-card ${isExpanded ? 'expanded' : ''}`}
+              >
+                <h2>{event.title}</h2>
+                <p>
+                  {new Date(event.startTime).toLocaleString()} –{' '}
+                  {new Date(event.endTime).toLocaleString()}
+                </p>
+                {isExpanded && (
+                  <div className="event-description">
+                    <strong>Description:</strong>
+                    <p>{event.description}</p>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       )}
     </div>

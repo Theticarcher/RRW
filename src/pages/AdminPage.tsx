@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
+interface Event {
+  id: string;
+  title: string;
+  description: string;
+  startTime: string;
+  endTime: string;
+}
+
 const AdminPage: React.FC = () => {
   const [authenticated, setAuthenticated] = useState(false);
   const [login, setLogin] = useState({ username: '', password: '' });
@@ -8,11 +16,12 @@ const AdminPage: React.FC = () => {
     title: '',
     description: '',
     startTime: '',
-    endTime: ''
+    endTime: '',
   });
 
-  const username = process.env.REACT_APP_USERNAME;
-  const password = process.env.REACT_APP_PASSWORD;
+  // Ensure you have these variables set in your .env file (REACT_APP_USERNAME, REACT_APP_PASSWORD)
+  const username = process.env.REACT_APP_USERNAME || '';
+  const password = process.env.REACT_APP_PASSWORD || '';
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,22 +35,48 @@ const AdminPage: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const newEvent = {
+    // Optional: Validate start and end times
+    if (new Date(event.endTime) <= new Date(event.startTime)) {
+      alert('End time must be after start time');
+      return;
+    }
+
+    const newEvent: Event = {
       ...event,
-      id: uuidv4() // Generate unique ID
+      id: uuidv4(),
     };
 
+    // Safely parse existing events from localStorage
     const stored = localStorage.getItem('events');
-    const events = stored ? JSON.parse(stored) : [];
-    events.push(newEvent);
-    localStorage.setItem('events', JSON.stringify(events));
+    let eventsData: { events: Event[] } = { events: [] };
+
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) {
+          // Legacy flat array detected — wrap in object
+          eventsData = { events: parsed };
+        } else if (parsed && Array.isArray(parsed.events)) {
+          eventsData = parsed;
+        }
+      } catch (err) {
+        // Parsing failed — reset to default
+        eventsData = { events: [] };
+      }
+    }
+
+    // Add new event and save
+    eventsData.events.push(newEvent);
+    localStorage.setItem('events', JSON.stringify(eventsData));
 
     alert('Event saved to localStorage!');
+
+    // Reset form fields
     setEvent({
       title: '',
       description: '',
       startTime: '',
-      endTime: ''
+      endTime: '',
     });
   };
 
@@ -53,12 +88,16 @@ const AdminPage: React.FC = () => {
           placeholder="Username"
           value={login.username}
           onChange={(e) => setLogin({ ...login, username: e.target.value })}
+          required
+          autoComplete="username"
         />
         <input
           placeholder="Password"
           type="password"
           value={login.password}
           onChange={(e) => setLogin({ ...login, password: e.target.value })}
+          required
+          autoComplete="current-password"
         />
         <button type="submit">Login</button>
       </form>
