@@ -10,8 +10,7 @@
       "links": [
         { "text": "Home", "href": "/" },
         { "text": "Services", "href": "/services" },
-        { "text": "Events", "href": "/events" },
-        { "text": "admin", "href": "/admin" }
+        { "text": "Events", "href": "/events" }
       ]
     },
     "services": [
